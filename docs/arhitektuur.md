@@ -6,10 +6,10 @@ Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kui
 
 ## Mõõdikud
 
-1. Top 10 sihtkohta ja lähtekohta 
+1. Top 10 sihtkohta ja lähtekohta nädalas
 2. Nädalamuster — mis päevadel on kõige rohkem lende
-3. Tipp-tunnid
-4. Unikaalsed sihtkohad
+3. Tipp-tunnid nädalas
+4. Unikaalsed sihtkohad nädalas
 
 
 ## Andmeallikad
@@ -52,10 +52,10 @@ Iga töövoo käivitus saab uue `run_id`. Vanad API vastused jäävad `staging` 
 |---|---|---|
 | API ei vasta või võrgupäring ebaõnnestub | Andmeid ei saa värskendada | Skript annab selge veateate; käivitamine kordub järgmisel tunnil automaatselt. |
 | API väljade nimed muutuvad | Laadimine katkeb | Testides kontrollitakse nõutud väljade olemasolu. |
-| Ei õnnestu compose failist panna kogu toolingut püsti | |  |
+| Ei õnnestu compose failist panna kogu toolingut püsti | Rakenduskeskkond ei käivitu või osa teenuseid ei tööta |  Kasutatakse eraldi compose profiile ja teenuseid testitakse ükshaaval; probleemide korral saab komponendid käivitada ka lokaalselt. |
 | Dashboard näitab vanu andmeid | Andmed on ebakorrektsed | Dashboardil kuvatakse viimase laadimise aeg. |
-| Superset init aeglane | Esimesel käivitusel tuleb oodata 2-3 minutit | Docker Compose ei seadista superset vaikimisi - kontrolli logisid |
-| Ei saa projekti õigeks ajaks täies mahus valmis | | Alustame arendusega juba esimesel nädalal |
+| Superset init aeglane | Esimesel käivitusel tuleb oodata 2-3 minutit | Docker Compose ei seadista automaatselt Superset'i valmisoleku kontrolli (healthcheck’i) — kontrollitakse konteinerite logisid enne ühendamist. |
+| Ei saa projekti õigeks ajaks täies mahus valmis | | Alustada arendusega juba esimesel nädalal. |
 
 ## Privaatsus ja turve
 
