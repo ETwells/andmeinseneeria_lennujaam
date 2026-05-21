@@ -24,7 +24,8 @@ Staatilisest lennujaama nimetuste CSV-st võetakse linna nimi ja riik.
 
 ## Andmevoog
 
-draw.io pilt
+<img width="816" height="754" alt="image" src="https://github.com/user-attachments/assets/39245df1-0696-4058-b76e-f582e6ba47c9" />
+
 
 ## Andmebaasi kihid
 
