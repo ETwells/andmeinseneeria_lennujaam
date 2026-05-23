@@ -4,23 +4,26 @@
 
 Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kuidas muutub lennuliiklus nädalapäevade lõikes?
 
+> Täpsustus: "populaarseim marsruut" tähendab antud projektis suurimat lennusündmuste arvu, mitte reisijate arvu.
+
 ## Mõõdikud
 
-1. Top 10 sihtkohta ja lähtekohta nädalas
-2. Nädalamuster — mis päevadel on kõige rohkem lende
-3. Tipp-tunnid nädalas
-4. Unikaalsed sihtkohad nädalas
+1. **Top 10 sihtkohta ja lähtekohta nädalas** — kõige rohkem lende Tallinna lennujaama ja teise lennujaama vahel.
+2. **Nädalamuster** — mis päevadel on kõige rohkem lende.
+3. **Tipp-tunnid nädalas** — millistel kellaaegadel on Tallinna lennujaamas kõige rohkem saabumisi ja väljumisi.
+4. **Unikaalsed sihtkohad nädalas** — mitme erineva lennujaamaga oli ühendus.
 
 
 ## Andmeallikad
 
 | Allikas | Tüüp | Muutuvus ajas | Kasutus |
 |---|---|---|---|
-| [OpenSky API](https://openskynetwork.github.io/opensky-api/rest.html) | Avalik HTTP API | Uueneb kord päevas | Põhiandmevoog |
-| [OurAirports CSV](https://ourairports.com/help/data-dictionary.html) | CSV | Ei, staatiline | Lennujaama linna nimi ja riik |
+| [OpenSky API](https://openskynetwork.github.io/opensky-api/rest.html) | Avalik HTTP API | Uueneb kord päevas öise batch-processiga | Põhiandmevoog: Tallinna lennujaama saabumised ja väljumised |
+| [OurAirports CSV](https://ourairports.com/help/data-dictionary.html) | CSV/ dbt seed | Ei, staatiline | Lennujaama nimi ja kood ning linna nimi ja riik |
 
-Põhiandmevoog tuleb OpenSky API-st (endpointid: `GET /fligths/arrival` ja `GET /flights/departure`). 
-Staatilisest lennujaama nimetuste CSV-st võetakse linna nimi ja riik.
+Põhiandmevoog tuleb OpenSky API-st (endpointid: `GET /flights/arrival` ja `GET /flights/departure`). Päringutes kasutatakse Tallinna lennujaama ICAO koodi `EETN`.
+
+Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning linna nimi ja riik.
 
 ## Andmevoog
 
