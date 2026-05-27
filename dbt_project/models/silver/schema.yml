@@ -1,0 +1,14 @@
+version: 2
+
+models:
+
+  - name: silver_dim_main_cost_types
+    description: >
+      This table applies when cost_type has sub_costs. One row per cost type / sub-cost type within a period. Includes period metadata, parent cost type hierarchy, tariff information, and allocation settings.
+
+    columns:
+      - name: main_cost_type_key
+        description: "Surrogate key generated using ROW_NUMBER ordered by source id"
+        tests:
+          - not_null
+          - unique
