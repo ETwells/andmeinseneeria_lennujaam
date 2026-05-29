@@ -9,7 +9,7 @@ __pycache__/
 # env
 .env
 
-# local configs
-profiles.yml
+# # local configs
+# profiles.yml
 
 
