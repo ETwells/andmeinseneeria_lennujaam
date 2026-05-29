@@ -276,7 +276,7 @@ docker compose exec dbt dbt seed
 docker compose exec dbt dbt build
 docker compose exec dbt dbt docs generate
 ```
-* Käivita dbt metadata
+* Käivita dbt metadata (Hetkel ei töötanud; aga ma sätin seda (Meik))
 ```bash
 docker compose exec dbt dbt docs generate
 ```
