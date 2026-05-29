@@ -1,0 +1,105 @@
+version: 2
+
+sources:
+- name: staging
+  description: Raw flight data ingested from the OpenSky API.
+  schema: staging
+
+  tables:
+  - name: arrivals
+    description: Flight arrival records from the OpenSky API.
+    loaded_at_field: loaded_at
+
+    columns:
+    - name: icao24
+      description: Unique 24-bit ICAO aircraft identifier.
+      tests:
+      - not_null
+
+    - name: first_seen
+      description: Timestamp when the flight was first observed.
+      tests:
+      - not_null
+
+    - name: est_departure_airport
+      description: Estimated ICAO code of the departure airport.
+
+    - name: last_seen
+      description: Timestamp when the flight was last observed.
+
+    - name: est_arrival_airport
+      description: Estimated ICAO code of the arrival airport.
+
+    - name: callsign
+      description: Flight callsign.
+
+    - name: est_departure_airport_horiz_dist
+      description: Horizontal distance from the estimated departure airport in meters.
+
+    - name: est_departure_airport_vert_dist
+      description: Vertical distance from the estimated departure airport in meters.
+
+    - name: est_arrival_airport_horiz_dist
+      description: Horizontal distance from the estimated arrival airport in meters.
+
+    - name: est_arrival_airport_vert_dist
+      description: Vertical distance from the estimated arrival airport in meters.
+
+    - name: departure_airport_candidates_count
+      description: Number of candidate departure airports identified.
+
+    - name: arrival_airport_candidates_count
+      description: Number of candidate arrival airports identified.
+
+    - name: loaded_at
+      description: Timestamp when the record was loaded into the database.
+
+  - name: departures
+    description: Flight departure records from the OpenSky API.
+    loaded_at_field: loaded_at
+
+    columns:
+    - name: icao24
+      description: Unique 24-bit ICAO aircraft identifier.
+      tests:
+      - not_null
+
+    - name: first_seen
+      description: Timestamp when the flight was first observed.
+      tests:
+      - not_null
+
+    - name: est_departure_airport
+      description: Estimated ICAO code of the departure airport.
+
+    - name: last_seen
+      description: Timestamp when the flight was last observed.
+
+    - name: est_arrival_airport
+      description: Estimated ICAO code of the arrival airport.
+
+    - name: callsign
+      description: Flight callsign.
+
+    - name: est_departure_airport_horiz_dist
+      description: Horizontal distance from the estimated departure airport in meters.
+
+    - name: est_departure_airport_vert_dist
+      description: Vertical distance from the estimated departure airport in meters.
+
+    - name: est_arrival_airport_horiz_dist
+      description: Horizontal distance from the estimated arrival airport in meters.
+
+    - name: est_arrival_airport_vert_dist
+      description: Vertical distance from the estimated arrival airport in meters.
+
+    - name: departure_airport_candidates_count
+      description: Number of candidate departure airports identified.
+
+    - name: arrival_airport_candidates_count
+      description: Number of candidate arrival airports identified.
+
+    - name: loaded_at
+      description: Timestamp when the record was loaded into the database.
+
+

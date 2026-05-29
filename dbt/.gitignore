@@ -1,0 +1,15 @@
+# dbt artifacts
+logs/
+target/
+
+# python
+__pycache__/
+*.pyc
+
+# env
+.env
+
+# local configs
+profiles.yml
+
+
