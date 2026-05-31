@@ -1,0 +1,42 @@
+version: 2
+
+seeds:
+- name: airports
+  description: Airport reference data loaded from the OurAirports dataset.
+
+  columns:
+  - name: id
+    description: Unique airport identifier from the source dataset.
+    tests:
+    - not_null
+    - unique
+
+  - name: ident
+    description: Airport identifier used by the source dataset.
+
+  - name: type
+    description: Airport type.
+
+  - name: name
+    description: Airport name.
+
+  - name: municipality
+    description: City or municipality where the airport is located.
+
+  - name: iso_country
+    description: ISO 3166-1 alpha-2 country code.
+
+  - name: iata
+    description: IATA airport code.
+
+  - name: icao
+    description: ICAO airport code used to join with OpenSky arrivals and departures.
+    tests:
+    - not_null
+    - unique
+
+  - name: latitude_deg
+    description: Airport latitude in decimal degrees.
+
+  - name: longitude_deg
+    description: Airport longitude in decimal degrees.

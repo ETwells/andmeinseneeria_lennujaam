@@ -1,0 +1,12 @@
+lennujaam_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'db') }}"
+      port: 5432
+      user: "{{ env_var('POSTGRES_USER', 'lennujaam') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'lennu_grupp') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'lennujaam_db') }}"
+      schema: public
+      threads: 2

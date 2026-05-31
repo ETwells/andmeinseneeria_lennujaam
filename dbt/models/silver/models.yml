@@ -1,0 +1,200 @@
+version: 2
+
+models:
+
+  - name: silver_dim_arrivals
+    description: >
+        Arrival flights enriched with departure and arrival airport
+        information from the airports reference dataset.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - icao24
+            - first_seen_utc
+
+    columns:
+      - name: icao24
+        description: Unique 24-bit ICAO aircraft identifier.
+        tests:
+          - not_null
+
+      - name: first_seen_utc
+        description: Timestamp when the flight was first observed in UTC.
+        tests:
+          - not_null
+
+      - name: first_seen_est
+        description: Timestamp when the flight was first observed in Estonia local time.
+
+      - name: last_seen_utc
+        description: Timestamp when the flight was last observed in UTC.
+
+      - name: last_seen_est
+        description: Timestamp when the flight was last observed in Estonia local time.
+
+      - name: callsign
+        description: Flight callsign broadcast by the aircraft.
+
+      - name: est_departure_airport
+        description: Estimated ICAO code of the departure airport.
+
+      - name: departure_airport_name
+        description: Name of the departure airport.
+
+      - name: departure_city
+        description: Municipality or city of the departure airport.
+
+      - name: departure_country
+        description: ISO country code of the departure airport.
+
+      - name: departure_iata
+        description: IATA code of the departure airport.
+
+      - name: departure_icao
+        description: ICAO code of the departure airport.
+
+      - name: est_arrival_airport
+        description: Estimated ICAO code of the arrival airport.
+
+      - name: arrival_airport_name
+        description: Name of the arrival airport.
+
+      - name: arrival_city
+        description: Municipality or city of the arrival airport.
+
+      - name: arrival_country
+        description: ISO country code of the arrival airport.
+
+      - name: arrival_iata
+        description: IATA code of the arrival airport.
+
+      - name: arrival_icao
+        description: ICAO code of the arrival airport.
+
+      - name: est_departure_airport_horiz_dist
+        description: Horizontal distance from the estimated departure airport in meters.
+
+      - name: est_departure_airport_vert_dist
+        description: Vertical distance from the estimated departure airport in meters.
+
+      - name: est_arrival_airport_horiz_dist
+        description: Horizontal distance from the estimated arrival airport in meters.
+
+      - name: est_arrival_airport_vert_dist
+        description: Vertical distance from the estimated arrival airport in meters.
+
+      - name: departure_airport_candidates_count
+        description: Number of candidate departure airports identified by OpenSky.
+
+      - name: departure_airport_match_status
+        description: Human-readable status indicating how certain the departure airport match is.
+
+      - name: arrival_airport_candidates_count
+        description: Number of candidate arrival airports identified by OpenSky.
+
+      - name: arrival_airport_match_status
+        description: Human-readable status indicating how certain the arrival airport match is.
+
+      - name: loaded_at
+        description: Timestamp when the record was loaded into the warehouse.
+
+
+  - name: silver_dim_departures
+    description: >
+        Departure flights enriched with departure and
+        arrival airport information from the airports reference dataset.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - icao24
+            - first_seen_utc
+
+    columns:
+      - name: icao24
+        description: Unique 24-bit ICAO aircraft identifier.
+        tests:
+          - not_null
+
+      - name: first_seen_utc
+        description: Timestamp when the flight was first observed in UTC.
+        tests:
+          - not_null
+
+      - name: first_seen_est
+        description: Timestamp when the flight was first observed in Estonia local time.
+
+      - name: last_seen_utc
+        description: Timestamp when the flight was last observed in UTC.
+
+      - name: last_seen_est
+        description: Timestamp when the flight was last observed in Estonia local time.
+
+      - name: callsign
+        description: Flight callsign broadcast by the aircraft.
+
+      - name: est_departure_airport
+        description: Estimated ICAO code of the departure airport.
+
+      - name: departure_airport_name
+        description: Name of the departure airport.
+
+      - name: departure_city
+        description: Municipality or city of the departure airport.
+
+      - name: departure_country
+        description: ISO country code of the departure airport.
+
+      - name: departure_iata
+        description: IATA code of the departure airport.
+
+      - name: departure_icao
+        description: ICAO code of the departure airport.
+
+      - name: est_arrival_airport
+        description: Estimated ICAO code of the arrival airport.
+
+      - name: arrival_airport_name
+        description: Name of the arrival airport.
+
+      - name: arrival_city
+        description: Municipality or city of the arrival airport.
+
+      - name: arrival_country
+        description: ISO country code of the arrival airport.
+
+      - name: arrival_iata
+        description: IATA code of the arrival airport.
+
+      - name: arrival_icao
+        description: ICAO code of the arrival airport.
+
+      - name: est_departure_airport_horiz_dist
+        description: Horizontal distance from the estimated departure airport in meters.
+
+      - name: est_departure_airport_vert_dist
+        description: Vertical distance from the estimated departure airport in meters.
+
+      - name: est_arrival_airport_horiz_dist
+        description: Horizontal distance from the estimated arrival airport in meters.
+
+      - name: est_arrival_airport_vert_dist
+        description: Vertical distance from the estimated arrival airport in meters.
+
+      - name: departure_airport_candidates_count
+        description: Number of candidate departure airports identified by OpenSky.
+
+      - name: departure_airport_match_status
+        description: Human-readable status indicating how certain the departure airport match is.
+
+      - name: arrival_airport_candidates_count
+        description: Number of candidate arrival airports identified by OpenSky.
+
+      - name: arrival_airport_match_status
+        description: Human-readable status indicating how certain the arrival airport match is.
+
+      - name: loaded_at
+        description: Timestamp when the record was loaded into the warehouse.
+
+

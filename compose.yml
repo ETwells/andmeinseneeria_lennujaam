@@ -115,34 +115,34 @@ services:
     command: ["/app/docker/entrypoints/run-server.sh"]
 
   # Pythoni konteiner andmete laadimiseks (CSV → andmebaas) ja REST API serveerimiseks
-  python:
-    build:
-      context: .
-      dockerfile: Dockerfile.python
-    container_name: lennujaam-python
-    env_file:
-      - .env
-    environment:
-      DB_HOST: db
-      DB_PORT: "5432"
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_NAME: ${POSTGRES_DB}
-      API_KEY: ${API_KEY}
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ./scripts:/scripts
-      - ./data:/data
-      - ./dbt_project:/dbt
-    working_dir: /scripts
-    ports:
-      - "8000:8000"
-    tty: true
+  # python:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.python
+  #   container_name: lennujaam-python
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     DB_HOST: db
+  #     DB_PORT: "5432"
+  #     DB_USER: ${POSTGRES_USER}
+  #     DB_PASSWORD: ${POSTGRES_PASSWORD}
+  #     DB_NAME: ${POSTGRES_DB}
+  #     API_KEY: ${API_KEY}
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./scripts:/scripts
+  #     - ./data:/data
+  #     - ./dbt_project:/dbt
+  #   working_dir: /scripts
+  #   ports:
+  #     - "8000:8000"
+  #   tty: true
 
   # Päevane OpenSky ingest (arrivals + departures, kord ööpäevas)
-  ingest:
+  python:
     build:
       context: .
       dockerfile: Dockerfile.python
@@ -162,6 +162,8 @@ services:
         condition: service_healthy
     volumes:
       - ./scripts:/scripts
+      - ./data:/data
+      - ./dbt:/dbt
     working_dir: /scripts
     command: >
       /bin/sh -c "
@@ -172,6 +174,9 @@ services:
         done
       "
     restart: unless-stopped
+    # ports:
+    #   - "8000:8000"
+    # tty: true
 
   # dbt konteiner mudelite käivitamiseks
   dbt:
@@ -190,8 +195,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    # ports:
+    #   - "8080:8080"
+
     volumes:
-      - ./dbt_project:/dbt
+      - ./dbt:/dbt
     working_dir: /dbt
     tty: true
 
