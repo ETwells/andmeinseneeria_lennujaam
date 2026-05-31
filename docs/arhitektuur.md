@@ -27,8 +27,7 @@ Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning 
 
 ## Andmevoog
 
-<img width="816" height="754" alt="image" src="https://github.com/user-attachments/assets/bc308b37-274f-4fbd-9b5e-9c362a071b1b" />
-
+<img width="589" height="546" alt="image" src="https://github.com/user-attachments/assets/d46f7a71-14ac-4709-bbf7-5b9697e8e28d" />
 
 ## Andmebaasi kihid
 
