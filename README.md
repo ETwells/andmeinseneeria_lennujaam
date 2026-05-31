@@ -27,8 +27,14 @@
 │   ├── arhitektuur.md
 │   └── progress.md
 ├── README.md
+├── superset
+│   ├── exports
+│   ├── sql
+│   │   ├── flights_by_hour.sql
+│   │   └──  flights_by_weekday.sql
 ├── scripts
 │   ├── ingest.py
+│   ├── opensky_ingest.py
 │   └── requirements.txt
 └── superset_config.py
 ```
