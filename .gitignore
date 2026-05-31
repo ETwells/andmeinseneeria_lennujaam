@@ -9,6 +9,6 @@ __pycache__/
 # env
 .env
 
-
-
+#envcopy
+envfile
 
