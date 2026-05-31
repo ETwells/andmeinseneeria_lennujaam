@@ -8,7 +8,7 @@ Tallinna lennujaama (EETN) marsruutide ja nädalamustrite uuring. Andmevoog: Ope
 
 - Docker Compose käivitab kõik teenused (pgduckdb, dbt, Superset, ingest).
 - OpenSky API-st laetakse EETN saabumised/väljumised `staging` kihti; iga käivitus logitakse `etl_log`-i, ingest kordub kord ööpäevas.
-- Viiteandmed valmis (`airports` seeme OurAirportsist).
+- Viiteandmed valmis (`airports` OurAirportsist).
 - dbt `silver` *(superset)*: `silver_dim_arrivals` / `silver_dim_departures` ühendavad lennud lennujaamadega + Tallinna kohaaeg.
 - dbt `marts` *(superset)*: dimensioonid `dim_date` (Eesti pühad) ja `dim_time`.
 - Andmekvaliteedi testid läbivad *(superset)*: `not_null`, `unique`, `unique_combination_of_columns` + seed tests.
