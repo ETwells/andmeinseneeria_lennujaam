@@ -6,8 +6,12 @@ model-paths: ["models"]
 snapshot-paths: ["snapshots"]
 test-paths: ["tests"]
 macro-paths: ["macros"]
+seed-paths: ["seeds"]
 target-path: "target"
 clean-targets: ["target", "dbt_packages"]
+
+data_tests:
+  +store_failures: true
 
 models:
   lennujaam_dbt:

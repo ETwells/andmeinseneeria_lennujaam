@@ -20,7 +20,7 @@ SELECT
 
     full_date,
 
-    trim(to_char(full_date, 'Day')) AS day_of_week,
+    trim(to_char(full_date, 'Day')) AS weekday_name,
 
     extract(isodow FROM full_date) AS day_of_week_num,
 
@@ -60,19 +60,14 @@ SELECT
         THEN FALSE ELSE TRUE
     END AS is_working_day,
 
-    CASE
-        WHEN extract(month FROM full_date) IN (12, 1, 2)
-            THEN 'Winter'
-        WHEN extract(month FROM full_date) IN (3, 4, 5)
-            THEN 'Spring'
-        WHEN extract(month FROM full_date) IN (6, 7, 8)
-            THEN 'Summer'
-        ELSE 'Autumn'
-    END AS season,
-
     extract(month FROM full_date) AS month,
+
+    to_char(full_date, 'Month') AS month_name,
+
+    extract(quarter FROM full_date) AS quarter,
 
     extract(year FROM full_date) AS year
 
 FROM date_data
+
 ORDER BY full_date

@@ -2892,7 +2892,7 @@ id,ident,type,name,municipality,iso_country,iata,icao,latitude_deg,longitude_deg
 6387,TKPN,medium_airport,Vance W. Amory International Airport,Charlestown,KN,NEV,TKPN,17.2057,-62.589901
 6388,TLPC,medium_airport,George F. L. Charles Airport,Castries,LC,SLU,TLPC,14.0202,-60.992901
 6389,TLPL,large_airport,Hewanorra International Airport,Vieux Fort,LC,UVF,TLPL,13.7332,-60.952599
-44383,TM-0002,large_airport,Balkanabat International Airport,Balkanabat,TM,BKN,UTAN,39.681052,54.206008
+44383,TM-0002,medium_airport,Balkanabat International Airport,Balkanabat,TM,BKN,UTAN,39.681052,54.206008
 6402,TNCA,large_airport,Queen Beatrix International Airport,Oranjestad,AW,AUA,TNCA,12.501056,-70.014281
 6403,TNCB,large_airport,Flamingo International Airport,Kralendijk,BQ,BON,TNCB,12.131,-68.268501
 6404,TNCC,large_airport,Hato International Airport,Willemstad,CW,CUR,TNCC,12.1889,-68.959801

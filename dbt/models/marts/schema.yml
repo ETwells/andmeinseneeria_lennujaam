@@ -1,82 +1,70 @@
 version: 2
 
 models:
-  - name: dim_date
-    description: Date dimension used for analytical reporting and time-based aggregations.
+  - name: OBT_TLL_arrivals_departures
+    description: >
+     Unified fact table containing arrivals to Tallinn Airport
+     (TLL) and departures from Tallinn Airport (TLL),
+     enriched with date and time dimensions."
 
     columns:
-      - name: date_key
-        description: Surrogate key in YYYYMMDD format.
+      - name: direction
+        description: "Flight direction relative to Tallinn Airport. Values: arrival_TLL or departure_TLL."
         tests:
-          - unique
           - not_null
 
-      - name: full_date
-        description: Calendar date.
+      - name: event_date
+        description: "Flight arrival or departure date in Estonia local time."
         tests:
-          - unique
           - not_null
 
-      - name: day_of_week
-        description: Name of the day of the week.
+      - name: month_name
+        description: "Month name derived from the date dimension."
 
-      - name: day_of_week_num
-        description: Numeric day of the week.
-
-      - name: is_weekend
-        description: Indicates whether the date falls on a weekend.
+      - name: weekday_name
+        description: "Weekday name derived from the date dimension."
 
       - name: is_holiday
-        description: Indicates whether the date is an Estonian public holiday.
+        description: "Indicates whether the date is an Estonian public holiday."
 
       - name: is_working_day
-        description: Indicates whether the date is a working day.
-
-      - name: season
-        description: Season of the year.
-
-      - name: month
-        description: Month number.
+        description: "Indicates whether the date is a working day."
 
       - name: year
-        description: Calendar year.
-
-  - name: dim_time
-    description: Time dimension at one-minute granularity.
-
-    columns:
-      - name: time_key
-        description: Surrogate key in HHMM format.
-        tests:
-          - unique
-          - not_null
-
-      - name: full_time
-        description: Time value.
-        tests:
-          - unique
-          - not_null
+        description: "Year derived from the date dimension."
 
       - name: hour
-        description: Hour of the day.
-
-      - name: minute
-        description: Minute of the hour.
-
-      - name: time_hhmm
-        description: Time formatted as HH:MM.
+        description: "Hour of arrival or departure in Estonia local time."
 
       - name: is_morning
-        description: Indicates whether the time falls between 06:00 and 11:59.
+        description: "True when the flight occurred between 06:00 and 11:59."
 
       - name: is_afternoon
-        description: Indicates whether the time falls between 12:00 and 17:59.
+        description: "True when the flight occurred between 12:00 and 17:59."
 
       - name: is_evening
-        description: Indicates whether the time falls between 18:00 and 21:59.
+        description: "True when the flight occurred between 18:00 and 21:59."
 
       - name: is_night
-        description: Indicates whether the time falls between 22:00 and 05:59.
+        description: "True when the flight occurred between 22:00 and 05:59."
 
-      - name: is_business_hours
-        description: Indicates whether the time falls within standard business hours.
+      - name: departure_iata
+        description: "IATA code of the departure airport."
+
+      - name: departure_icao
+        description: "ICAO code of the departure airport."
+
+      - name: departure_airport_name
+        description: "Name of the departure airport."
+
+      - name: arrival_iata
+        description: "IATA code of the arrival airport."
+
+      - name: arrival_icao
+        description: "ICAO code of the arrival airport."
+
+      - name: arrival_airport_name
+        description: "Name of the arrival airport."
+
+      - name: loaded_at
+        description: "Timestamp when the source record was loaded into the data warehouse."
