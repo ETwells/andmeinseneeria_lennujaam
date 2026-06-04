@@ -1,5 +1,16 @@
-FROM python:3.13-slim
-RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir dbt-postgres==1.10.0
+FROM python:3.12-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN python -m pip install --upgrade pip
+
+RUN python -m pip install --no-cache-dir \
+    dbt-core==1.10.22 \
+    dbt-postgres==1.10.0
+
 WORKDIR /dbt
+
 ENTRYPOINT ["bash"]
+
