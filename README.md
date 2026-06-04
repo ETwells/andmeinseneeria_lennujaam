@@ -27,8 +27,14 @@
 │   ├── arhitektuur.md
 │   └── progress.md
 ├── README.md
+├── superset
+│   ├── exports
+│   ├── sql
+│   │   ├── flights_by_hour.sql
+│   │   └──  flights_by_weekday.sql
 ├── scripts
 │   ├── ingest.py
+│   ├── opensky_ingest.py
 │   └── requirements.txt
 └── superset_config.py
 ```
@@ -104,96 +110,83 @@ Iga töövoo käivitus saab uue `run_id`. Vanad API vastused jäävad `staging` 
 | Näidikulaua omanik | Ehitab Superset chart'e ja dashboardi | Carola Kesküla |
 
 
+## Riskid
 
+| Risk | Mõju | Maandus |
+|---|---|---|
+| API ei vasta või võrgupäring ebaõnnestub | Andmeid ei saa värskendada | Skript annab selge veateate; käivitamine kordub järgmisel tunnil automaatselt. |
+| API väljade nimed muutuvad | Laadimine katkeb | Testides kontrollitakse nõutud väljade olemasolu. |
+| Ei õnnestu compose failist panna kogu toolingut püsti | Rakenduskeskkond ei käivitu või osa teenuseid ei tööta |  Kasutatakse eraldi compose profiile ja teenuseid testitakse ükshaaval; probleemide korral saab komponendid käivitada ka lokaalselt. |
+| Dashboard näitab vanu andmeid | Andmed on ebakorrektsed | Dashboardil kuvatakse viimase laadimise aeg. |
+| Superset init aeglane | Esimesel käivitusel tuleb oodata 2-3 minutit | Docker Compose ei seadista automaatselt Superset'i valmisoleku kontrolli (healthcheck’i) — kontrollitakse konteinerite logisid enne ühendamist. |
+| Ei saa projekti õigeks ajaks täies mahus valmis | | Alustada arendusega juba esimesel nädalal. |
 
-## Enne alustamist tuleks luua Docker konteineri teenused
+## Privaatsus ja turve
 
-## Kuidas käivitada
+Projekt kasutab ainult avalikke lennuandmeid. Isikuandmeid ei koguta. Andmebaasi kasutajanimi ja parool tulevad `.env` failist. Päris `.env` faili ei tohi reposse lisada.
 
+---
+
+## 1 Enne alustamist tuleb luua Docker konteineri teenused:
+
+### Kuidas käivitada:
 ```
 docker compose build --no-cache
-
 docker compose up -d
-
 ```
-## Konkreetse Docker konteineri teenuse sisse/välja lülitamine
 
+### Konkreetse Docker konteineri teenuse sisse/ välja lülitamine:
 ```
 docker compose build --no-cache <service_name>
 docker compose up -d <service_name>
 
 docker compose stop <service_name>
-
 ```
 
-## Keskkonnamuutujad ja sõltuvused
+### Keskkonnamuutujad ja sõltuvused
 
 <details>
 <summary>Keskkonnamuutujad</summary>
 
-
-### pgduckdb
-
-POSTGRES_USER
-
-POSTGRES_PASSWORD
-
-POSTGRES_DB
+#### pgduckdb
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+- POSTGRES_DB
 
 
-### dbt
-
-(no direct environment variables defined)
-
-
-### superset_db; Superseti metaandmete baas (eraldi postgres konteiner)
-
-SUPERSET_DB_USER
-
-SUPERSET_DB_PASSWORD
-
-SUPERSET_DB_NAME
+#### dbt
+- (no direct environment variables defined)
 
 
-# Superseti rakenduse seaded
-
-SUPERSET_SECRET_KEY
-
-SUPERSET_ADMIN_USER
-
-SUPERSET_ADMIN_PASSWORD
-
-SUPERSET_ADMIN_EMAIL
+#### superset_db; Superseti metaandmete baas (eraldi postgres konteiner)
+- SUPERSET_DB_USER
+- SUPERSET_DB_PASSWORD
+- SUPERSET_DB_NAME
 
 
-
+#### Superseti rakenduse seaded
+- SUPERSET_SECRET_KEY
+- SUPERSET_ADMIN_USER
+- SUPERSET_ADMIN_PASSWORD
+- SUPERSET_ADMIN_EMAIL
 </details>
-
 
 
 <details>
 <summary>Teenuse sõltuvused</summary>
-### python
 
-pgduckdb
+#### python
+- pgduckdb
 
-### superset
+#### superset
+- superset-init (service_completed_successfully)
 
-superset-init (service_completed_successfully)
+#### superset-init
+- superset_db (service_started)
 
-### superset-init
-
-superset_db (service_started)
-
-### dbt
-
-pgduckdb
-
-
+#### dbt
+- pgduckdb
 </details>
-
-
-
 
 
 ## 2 Andmete pärimine ja laadimine, dbt-mudelite loomine: silver, mart
@@ -281,7 +274,23 @@ docker compose exec dbt dbt docs generate
 docker compose exec dbt dbt docs generate
 ```
 
+## 3 Superset dashboardi importimine:
 
+1. Ava Superset: http://localhost:8088
+2. Impordi dashboard ZIP:
+   - **Dashboards** (vasakult esimene menüüelement) -> otsi paremalt ülevalt impordiikooni (Bulk Select nupust vasakul) - Import Dashboards. Vajuta sellele. 
+   - Vali imporditav fail: `superset/exports/dashboard_export_*.zip` (nt `dashboard_export_20260529T180446.zip`)
+   - Avanenud aken küsib ka PostgreSQL.yaml parooli. 
+   Sisesta .env failist POSTGRES_PASSWORD.
+3. Ava dashboard nimega **Lennujaama tiimi dashboard**:
+
+![Lennujaama tiimi dashboard Supersetis](/images/initial_superset_dashboard.png)
+
+---
+---
+---
+
+## Varia ajutised lisad:
 
 ## 6. Create Roles, Views in pgduckdb
 
@@ -465,19 +474,4 @@ LIMIT 1000;
 ```
 
 ![SeperSet Dashboard answering the BQ-1 and BQ-2](/images/dashboard.png)
-
-## Riskid
-
-| Risk | Mõju | Maandus |
-|---|---|---|
-| API ei vasta või võrgupäring ebaõnnestub | Andmeid ei saa värskendada | Skript annab selge veateate; käivitamine kordub järgmisel tunnil automaatselt. |
-| API väljade nimed muutuvad | Laadimine katkeb | Testides kontrollitakse nõutud väljade olemasolu. |
-| Ei õnnestu compose failist panna kogu toolingut püsti | Rakenduskeskkond ei käivitu või osa teenuseid ei tööta |  Kasutatakse eraldi compose profiile ja teenuseid testitakse ükshaaval; probleemide korral saab komponendid käivitada ka lokaalselt. |
-| Dashboard näitab vanu andmeid | Andmed on ebakorrektsed | Dashboardil kuvatakse viimase laadimise aeg. |
-| Superset init aeglane | Esimesel käivitusel tuleb oodata 2-3 minutit | Docker Compose ei seadista automaatselt Superset'i valmisoleku kontrolli (healthcheck’i) — kontrollitakse konteinerite logisid enne ühendamist. |
-| Ei saa projekti õigeks ajaks täies mahus valmis | | Alustada arendusega juba esimesel nädalal. |
-
-## Privaatsus ja turve
-
-Projekt kasutab ainult avalikke lennuandmeid. Isikuandmeid ei koguta. Andmebaasi kasutajanimi ja parool tulevad `.env` failist. Päris `.env` faili ei tohi reposse lisada.
 
