@@ -12,6 +12,8 @@ models:
         description: "Flight direction relative to Tallinn Airport. Values: arrival_TLL or departure_TLL."
         tests:
           - not_null
+          - accepted_values:
+              values: ['arrival_TLL', 'departure_TLL']
 
       - name: event_date
         description: "Flight arrival or departure date in Estonia local time."
@@ -68,3 +70,114 @@ models:
 
       - name: loaded_at
         description: "Timestamp when the source record was loaded into the data warehouse."
+
+  - name: dim_date
+    description: >
+      Kuupäevadimensioon vahemikus 1965-2050, mis sisaldab nädalapäeva,
+      kuu, kvartali ning püha-, nädalavahetuse- ja tööpäevalippe.
+
+    columns:
+      - name: date_key
+        description: "Kuupäeva tehniline võti kujul YYYYMMDD."
+        tests:
+          - not_null
+          - unique
+
+      - name: full_date
+        description: "Kuupäev (kuupäevatüüp), mille külge OBT sündmused liidetakse."
+        tests:
+          - not_null
+          - unique
+
+      - name: day_of_week_num
+        description: "Nädalapäeva number (ISO: 1 = esmaspäev ... 7 = pühapäev)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 7
+
+      - name: month
+        description: "Kuu number (1-12)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 12
+
+      - name: quarter
+        description: "Kvartali number (1-4)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 4
+
+      - name: is_weekend
+        description: "Tõene, kui kuupäev on laupäev või pühapäev."
+        tests:
+          - not_null
+
+      - name: is_holiday
+        description: "Tõene, kui kuupäev on Eesti riigipüha."
+        tests:
+          - not_null
+
+      - name: is_working_day
+        description: "Tõene, kui kuupäev on tööpäev (mitte nädalavahetus ega püha)."
+        tests:
+          - not_null
+
+  - name: dim_time
+    description: >
+      Ajadimensioon minutise sammuga (00:00-23:59), mis sisaldab tundi,
+      minutit ning päevaosa lippe (hommik, pärastlõuna, õhtu, öö).
+
+    columns:
+      - name: time_key
+        description: "Kellaaja tehniline võti kujul HH24MI."
+        tests:
+          - not_null
+          - unique
+
+      - name: full_time
+        description: "Kellaaeg (ajatüüp), mille külge OBT sündmused liidetakse."
+        tests:
+          - not_null
+          - unique
+
+      - name: hour
+        description: "Tund (0-23)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 23
+
+      - name: minute
+        description: "Minut (0-59)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 59
+
+      - name: is_morning
+        description: "Tõene, kui kellaaeg jääb vahemikku 06:00-11:59."
+        tests:
+          - not_null
+
+      - name: is_afternoon
+        description: "Tõene, kui kellaaeg jääb vahemikku 12:00-17:59."
+        tests:
+          - not_null
+
+      - name: is_evening
+        description: "Tõene, kui kellaaeg jääb vahemikku 18:00-21:59."
+        tests:
+          - not_null
+
+      - name: is_night
+        description: "Tõene, kui kellaaeg jääb vahemikku 22:00-05:59."
+        tests:
+          - not_null

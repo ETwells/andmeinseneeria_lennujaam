@@ -105,5 +105,11 @@ LEFT JOIN {{ ref('dim_date') }} dd
 LEFT JOIN {{ ref('dim_time') }} dt
     ON dt.full_time = date_trunc('minute', f.event_timestamp)::time
 
+-- Jäta välja kohalikud/treeninglennud, mis väljuvad ja saabuvad samasse
+-- lennujaama (nt Tallinn -> Tallinn). OBT kirjeldab marsruute Tallinna ja
+-- TEISE lennujaama vahel, mistõttu sama lennujaama marsruut pole asjakohane.
+-- IS DISTINCT FROM hoiab alles read, kus lähte- või sihtkoht on teadmata (NULL).
+WHERE f.departure_icao IS DISTINCT FROM f.arrival_icao
+
 ORDER BY
     f.event_timestamp
