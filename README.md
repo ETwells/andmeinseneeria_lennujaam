@@ -19,6 +19,7 @@
 │   ├── packages.yml
 │   ├── profiles.yml
 │   ├── seeds
+│   ├── tests
 │   └── target
 ├── Dockerfile.dbt
 ├── Dockerfile.python
@@ -31,7 +32,7 @@
 │   ├── exports
 │   ├── sql
 │   │   ├── flights_by_hour.sql
-│   │   └──  flights_by_weekday.sql
+│   │   └── flights_by_weekday.sql
 ├── scripts
 │   ├── ingest.py
 │   ├── opensky_ingest.py
@@ -67,7 +68,7 @@ Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning 
 
 ## Arhitektuur
 
-![Dataflow architecture and tooling](/images/Lennujaam_ver2.jpg)
+![Dataflow architecture and tooling](/images/Lennujaam_ver3.jpg)
 
 
 <!--<img width="816" height="754" alt="image" src="https://github.com/user-attachments/assets/bc308b37-274f-4fbd-9b5e-9c362a071b1b" />-->
@@ -248,6 +249,29 @@ docker exec -it lennujaam_db psql -U lennujaam -d lennujaam_db
 docker exec -it lennujaam_db psql -U lennujaam -d lennujaam_db -c "SELECT COUNT(*) FROM staging.arrivals;"
 docker exec -it lennujaam_db psql -U lennujaam -d lennujaam_db -c "SELECT COUNT(*) FROM staging.departures;"
 ```
+#### 2.1.1 Andmete orkestreerimine
+
+Antud projekti puhul toimub orkestreerimine ning andmete transformatsioon läbi cron'i tööde. Cron käivitatakse juurmasinas.
+Cron'i tööde lisamiseks avada crontab:
+```bash
+crontab -e
+```
+Ja lisada järgnevad graafikud:
+
+* Põhiandmete voog (Opensky API) Kord ööpäevas
+```bash
+0 3 * * * /opt/homebrew/bin/docker exec lennujaam-ingest python opensky_ingest.py >> $HOME/logs/lennujaam/ingest.log 2>&1
+```
+* andmete transformatsioon (dbt)
+```bash
+30 3 * * * /opt/homebrew/bin/docker exec lennujaam-dbt dbt build >> $HOME/logs/lennujaam/dbt.log 2>&1
+```
+* Lisaandmete voog (OurAirports CSV) Kord kuus   
+```bash
+0 2 1 * * /opt/homebrew/bin/docker exec lennujaam-ingest python ingest.py >> $HOME/logs/lennujaam/seed.log 2>&1
+```
+
+
 
 ### 2.2 Käivita dbt mudelid ja testid
 
