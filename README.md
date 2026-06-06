@@ -286,6 +286,30 @@ docker compose exec dbt dbt docs generate
 
 ![Lennujaama tiimi dashboard Supersetis](/images/initial_superset_dashboard.png)
 
+
+## 4 Andmekvaliteedi testid
+
+Üldised testid (`not_null`, `unique`, `accepted_values`, `relationships`, `dbt_utils.*`) on kirjeldatud mudelite juures `schema.yml` / `models.yml` failides.
+
+Projekti äriloogika testid:
+
+1. Nädalavahetus või riigipüha ei tohi olla tööpäev.
+2. Päevaosad (is_morning, is_afternoon, is_evening, is_night) peavad katma kogu ööpäeva ega tohi omavahel kattuda. 
+3. Iga sündmuse kuupäev (event_date) peab leiduma dim_date dimensioonis.
+4. Lennu lähte- ja sihtlennujaam ei tohi olla samad.
+5. Iga OBT faktitabeli rida peab olema seotud Tallinna lennujaamaga (TLL).
+6. Saabuva lennu *last_seen* ei saa olla varem kui *first_seen*. 
+7. Väljuva lennu *last_seen* ei saa olla varem kui *first_seen*. 
+
+Kuna `dbt_project.yml` failis on `data_tests: +store_failures: true`, salvestatakse iga ebaõnnestunud testi read eraldi tabelisse (skeem `*_dbt_test__audit`), kus neid saab järelkontrolliks vaadata.
+
+```bash
+# Vaata ebaõnnestunud testide salvestatud ridu (store_failures)
+docker exec lennujaam_db psql -U lennujaam -d lennujaam_db -c "\dt public_dbt_test__audit.*"
+```
+
+Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/andmeinseneeria_lennujaam/blob/main/dbt/tests/README.md)
+
 ---
 ---
 ---
