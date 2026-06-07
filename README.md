@@ -1,18 +1,13 @@
 # TALLINNA LENNUJAAMA MARSRUUTIDE UURING
-<!--[GRUPI NIMI] — [PROJEKTI PEALKIRI]-->
 
 ## Äriküsimus
-<!--[Kirjelda ühe-kahe lausega, millise andmetega seotud probleemi te lahendate ja kes sellest kasu saab.]-->
+
 Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kuidas muutub lennuliiklus nädalapäevade lõikes?
 
 > Täpsustus: "populaarseim marsruut" tähendab antud projektis suurimat lennusündmuste arvu, mitte reisijate arvu.
 
 
-
 **Mõõdikud:**
-<!--1. [Esimene KPI või mõõdik — näiteks: päevane müük poe kohta]
-2. [Teine KPI või mõõdik]
-3. [Kolmas KPI või mõõdik — vabatahtlik]-->
 
 1. **KPI-1: Top 10 sihtkohta ja lähtekohta nädalas** — kõige rohkem lende Tallinna lennujaama ja teise lennujaama vahel;
 2. **KPI-2: Lendude arv iga nädalapäeva kohta** — mis päevadel on kõige rohkem lende;
@@ -27,7 +22,7 @@ Täpsem kirjeldus: [`docs/arhitektuur.md`](docs/arhitektuur.md)-->
 ![Dataflow architecture and tooling](/images/Lennujaam_ver3.jpg)
 
 
-## Andmestik
+## Andmeallikad
 <!--
 | Allikas | Tüüp | Ajas muutuv? | Roll |
 |---------|------|--------------|------|
@@ -44,7 +39,7 @@ Põhiandmevoog tuleb OpenSky API-st (endpointid: `GET /flights/arrival` ja `GET 
 Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning linna nimi ja riik.
 
 
-## Stack
+## Tehniline stack
 
 | Komponent | Tööriist |
 |-----------|---------|
@@ -69,13 +64,14 @@ cp .env.example .env
 
 Enne alustamist tuleb käivitada Docker konteineri teenused.
 
-### Kuidas käivitada:
+
+#### Kuidas käivitada Docker konteineri teenused:
 ```
 docker compose build --no-cache
 docker compose up -d
 ```
 
-### Konkreetse Docker konteineri teenuse sisse/ välja lülitamine:
+#### Konkreetse Docker konteineri teenuse sisse/ välja lülitamine:
 ```
 docker compose build --no-cache <service_name>
 docker compose up -d <service_name>
@@ -87,6 +83,8 @@ docker compose stop <service_name>
 ```
 docker compose exec pipeline python scripts/run_pipeline.py run-all
 ```-->
+
+<br />
 
 ## Saladused ja konfiguratsioon
 
@@ -150,7 +148,7 @@ Projekt kasutab ainult avalikke lennuandmeid. Isikuandmeid ei koguta. Andmebaasi
 
 ## Andmevoog lühidalt
 
-1. **Andmete Orkestreerimine ja Sissevõtt** <!--— [Kirjelda, kuidas andmed allikast kätte saadakse]-->
+#### 1. **Andmete Orkestreerimine ja Sissevõtt** <!--— [Kirjelda, kuidas andmed allikast kätte saadakse]-->
 <!--#### 2.1.1 Andmete orkestreerimine-->
 
 Antud projekti puhul toimub andmete orkestreerimine: sissevõtt ning transformatsioon läbi cron'i tööde. Cron käivitatakse juurmasinas.
@@ -173,7 +171,10 @@ Ja lisada järgnevad graafikud:
 0 2 1 * * /opt/homebrew/bin/docker exec lennujaam-ingest python ingest.py >> $HOME/logs/lennujaam/seed.log 2>&1
 ```
 
-2. **Laadimine** — Andmed laaditakse `staging` kihti kasutades Python failis defineeritud protseduure: API-st andmete pärimine, `lennujaam_db` PostgreSQL andmebaasi ja tabelite loomine.  Iga töövoo käivitus saab uue `run_id`. Vanad API vastused jäävad `staging` kihti alles.
+<br />
+
+#### 2. **Laadimine** 
+Andmed laaditakse `staging` kihti kasutades Python failis defineeritud protseduure: API-st andmete pärimine, `lennujaam_db` PostgreSQL andmebaasi ja tabelite loomine.  Iga töövoo käivitus saab uue `run_id`. Vanad API vastused jäävad `staging` kihti alles.
 
 ```bash
 docker compose exec python python opensky_ingest.py --days 25
@@ -195,7 +196,9 @@ docker exec -it lennujaam_db psql -U lennujaam -d lennujaam_db -c "SELECT COUNT(
 docker exec -it lennujaam_db psql -U lennujaam -d lennujaam_db -c "SELECT COUNT(*) FROM staging.departures;"
 ```
 
-3. **Andmebaasi kihid; Transformatsioon: dbt mudelid ja testid** <!--— [Kirjelda peamised arvutused ja mudelid]-->
+<br />
+
+#### 3. **Andmebaasi kihid; Transformatsioon: dbt mudelid ja testid** <!--— [Kirjelda peamised arvutused ja mudelid]-->
 <!--### Andmebaasi kihid-->
 
 | Kiht | Roll |
@@ -253,7 +256,8 @@ Metadata failid on leitavad:
 
 ```
 
-4. **Testimine** <!--— [Mitu] andmekvaliteedi testi kontrollivad korrektsust-->
+
+#### 4. **Testimine** <!--— [Mitu] andmekvaliteedi testi kontrollivad korrektsust-->
 
 <!--## 4 Andmekvaliteedi testid-->
 
@@ -287,9 +291,9 @@ docker exec lennujaam_db psql -U lennujaam -d lennujaam_db -c "\dt public_dbt_te
 
 Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/andmeinseneeria_lennujaam/blob/main/dbt/tests/README.md)
 
+<br />
 
-
-5. **Näidikulaud** <!--— [Kirjelda lühidalt, mida näidikulaud näitab]-->
+#### 5. **Näidikulaud** <!--— [Kirjelda lühidalt, mida näidikulaud näitab]-->
 
 <!--## 3 Superset dashboardi importimine:-->
 
@@ -372,10 +376,9 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 
 * Marika: Dockeris teenuste käivitamisel ilmnes dbt ja `Postgres` versioonide vastuolu. `dbt-core 2.0.0-alpha.1` uuemal versioonil puudub 'postgres' adapter ('postgres' adapter is not yet supported by dbt Fusion). Seetõttu on Dockeri teenuste installimisel oluline pöörata erilist tähelepanu teenuste versioonide ühilduvusele.
 
-* Carola: API oli vahepeal kättesaamatu. Suhtlesin OpenSky inimestega, kes on vabatahtlikud. Pidime olema kannatlikud ja mõtlema kiirelt ka plaan B-d. 
+* Carola: API oli vahepeal kättesaamatu. Suhtlesin OpenSky inimestega, kes on vabatahtlikud. Pidime olema kannatlikud ja mõtlema kiirelt ka plaan B-d. Hea on see, et meil on töötav andmetoru ning saime oma äriküsimusele vastatud.
 
 * Katrin: ajaline surve.
-
 
 
 **Puudused:**
@@ -393,7 +396,9 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 
 
 **Mis edasi:**
-* Teine kord oleks targem valida tasuline API.
+* Edaspidi minna üle tasulisele APIle.
+* Näidikulauale lisada võimalus võrrelda nädalaid omavahel, et näha marsruutide muutust ajas.
+* Projekti suurenedes kasutada Airflowd.
 <!--- [Mida tahaksid edasi teha, kui aega oleks rohkem]-->
 
 ## Meeskond ja Tööjaotus

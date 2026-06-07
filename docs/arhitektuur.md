@@ -8,10 +8,10 @@ Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kui
 
 ## Mõõdikud
 
-1. **Top 10 sihtkohta ja lähtekohta nädalas** — kõige rohkem lende Tallinna lennujaama ja teise lennujaama vahel.
-2. **Nädalamuster** — mis päevadel on kõige rohkem lende.
-3. **Tipp-tunnid nädalas** — millistel kellaaegadel on Tallinna lennujaamas kõige rohkem saabumisi ja väljumisi.
-4. **Unikaalsed sihtkohad nädalas** — mitme erineva lennujaamaga oli ühendus.
+1. **KPI-1: Top 10 sihtkohta ja lähtekohta nädalas** — kõige rohkem lende Tallinna lennujaama ja teise lennujaama vahel;
+2. **KPI-2: Lendude arv iga nädalapäeva kohta** — mis päevadel on kõige rohkem lende;
+3. **KPI-3: Tipp-tunnid nädalas** — millistel kellaaegadel on Tallinna lennujaamas kõige rohkem saabumisi ja väljumisi;
+4. **KPI-4: Unikaalsed sihtkohad nädalas** — mitme erineva lennujaamaga oli ühendus.
 
 
 ## Andmeallikad
@@ -27,7 +27,7 @@ Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning 
 
 ## Andmevoog
 
-<img width="589" height="546" alt="image" src="https://github.com/user-attachments/assets/d46f7a71-14ac-4709-bbf7-5b9697e8e28d" />
+![Dataflow architecture and tooling](/images/Lennujaam_ver3.jpg)
 
 ## Andmebaasi kihid
 
