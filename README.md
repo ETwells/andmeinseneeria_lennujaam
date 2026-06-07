@@ -296,7 +296,7 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 * Ava Superset: http://localhost:8088
 * Impordi dashboard ZIP:
    - **Dashboards** (vasakult esimene menüüelement) -> otsi paremalt ülevalt impordiikooni (Bulk Select nupust vasakul) - Import Dashboards. Vajuta sellele.
-   - Vali imporditav fail: `superset/exports/dashboard_export_*.zip` (nt `dashboard_export_20260529T180446.zip`)
+   - Vali imporditav fail: `superset/dashboard_export_*.zip` (nt `dashboard_export_20260607T132733.zip`)
    - Avanenud aken küsib ka PostgreSQL.yaml parooli.
    Sisesta .env failist POSTGRES_PASSWORD.
 * Ava dashboard nimega **Lennujaama tiimi dashboard**:
