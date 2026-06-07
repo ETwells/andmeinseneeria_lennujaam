@@ -1,8 +1,6 @@
 # TALLINNA LENNUJAAMA MARSRUUTIDE UURING
 <!--[GRUPI NIMI] — [PROJEKTI PEALKIRI]-->
 
-> **Juhend:** Asenda kõik nurksulgudes vormid oma sisuga enne esitamist. Kustuta see juhendrida.
-
 ## Äriküsimus
 <!--[Kirjelda ühe-kahe lausega, millise andmetega seotud probleemi te lahendate ja kes sellest kasu saab.]-->
 Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kuidas muutub lennuliiklus nädalapäevade lõikes?
@@ -17,7 +15,7 @@ Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kui
 3. [Kolmas KPI või mõõdik — vabatahtlik]-->
 
 1. **KPI-1: Top 10 sihtkohta ja lähtekohta nädalas** — kõige rohkem lende Tallinna lennujaama ja teise lennujaama vahel;
-2. **KPI-2: Nädalamuster** — mis päevadel on kõige rohkem lende;
+2. **KPI-2: Lendude arv iga nädalapäeva kohta** — mis päevadel on kõige rohkem lende;
 3. **KPI-3: Tipp-tunnid nädalas** — millistel kellaaegadel on Tallinna lennujaamas kõige rohkem saabumisi ja väljumisi;
 4. **KPI-4: Unikaalsed sihtkohad nädalas** — mitme erineva lennujaamaga oli ühendus.
 
@@ -303,7 +301,7 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
    Sisesta .env failist POSTGRES_PASSWORD.
 * Ava dashboard nimega **Lennujaama tiimi dashboard**:
 
-![Lennujaama tiimi dashboard Supersetis](/images/initial_superset_dashboard.png)
+![Lennujaama tiimi dashboard Supersetis](/images/final_superset_dashboard.png)
 
 
 ## Projekti struktuur
@@ -361,11 +359,8 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 │   ├── opensky_ingest.py
 │   └── requirements.txt
 ├── superset
-│   ├── exports
-│   │   └── dashboard_export_20260529T180446.zip
-│   └── sql
-│       ├── flights_by_hour.sql
-│       └── flights_by_weekday.sql
+│   ├── dashboard_export_20260529T180446.zip
+│   └── dashboard_export_20260607T132733.zip
 └── superset_config.py
 ```
 
@@ -377,11 +372,9 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 
 * Marika: Dockeris teenuste käivitamisel ilmnes dbt ja `Postgres` versioonide vastuolu. `dbt-core 2.0.0-alpha.1` uuemal versioonil puudub 'postgres' adapter ('postgres' adapter is not yet supported by dbt Fusion). Seetõttu on Dockeri teenuste installimisel oluline pöörata erilist tähelepanu teenuste versioonide ühilduvusele.
 
-* Carola:
+* Carola: API oli vahepeal kättesaamatu. Suhtlesin OpenSky inimestega, kes on vabatahtlikud. Pidime olema kannatlikud ja mõtlema kiirelt ka plaan B-d. 
 
 * Katrin: ajaline surve.
-
-* Varia: API kättesaamatu
 
 
 
