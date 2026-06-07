@@ -59,7 +59,7 @@ Millised on Tallinna lennujaama populaarseimad marsruudid nädala lõikes ja kui
 | Allikas | Tüüp | Muutuvus ajas | Kasutus |
 |---|---|---|---|
 | [OpenSky API](https://openskynetwork.github.io/opensky-api/rest.html) | Avalik HTTP API | Uueneb kord päevas öise batch-processiga | Põhiandmevoog: Tallinna lennujaama saabumised ja väljumised |
-| [OurAirports CSV](https://ourairports.com/help/data-dictionary.html) | CSV/ dbt seed | Ei, staatiline | Lennujaama nimi ja kood ning linna nimi ja riik |
+| [OurAirports CSV](https://ourairports.com/help/data-dictionary.html) | CSV/ dbt seed | Uuendatakse kord kuus | Lennujaama nimi ja kood ning linna nimi ja riik |
 
 Põhiandmevoog tuleb OpenSky API-st (endpointid: `GET /flights/arrival` ja `GET /flights/departure`). Päringutes kasutatakse Tallinna lennujaama ICAO koodi `EETN`.
 
