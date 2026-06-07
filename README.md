@@ -77,11 +77,11 @@ Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning 
 
 | Komponent | Tööriist |
 |-----------|---------|
-| Sissevõtt | [Python / Airflow ] |
+| Sissevõtt | [Python / cron ] |
 | Transformatsioon | [SQL / dbt ] |
 | Andmehoidla | PostgreSQL |
 | Näidikulaud | [Superset] |
-| Orkestreerimine | [Airflow / cron] |
+| Orkestreerimine | [cron] |
 
 
 ## Andmevoog ja Andmebaasi kihid
