@@ -368,7 +368,7 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 
 **Kokkuvõte, Reflektsioon**
 <!--- [Loetle, mis on lõpule viidud, mis töötab hästi]-->
-* Oliver:
+* Oliver: Teine kord oleks targem API eest maksta.
 
 * Marika: Dockeris teenuste käivitamisel ilmnes dbt ja `Postgres` versioonide vastuolu. `dbt-core 2.0.0-alpha.1` uuemal versioonil puudub 'postgres' adapter ('postgres' adapter is not yet supported by dbt Fusion). Seetõttu on Dockeri teenuste installimisel oluline pöörata erilist tähelepanu teenuste versioonide ühilduvusele.
 
@@ -393,6 +393,7 @@ Testide käivitamine: vaata [dbt/tests/README.md](https://github.com/ETwells/and
 
 
 **Mis edasi:**
+* Teine kord oleks targem valida tasuline API.
 <!--- [Mida tahaksid edasi teha, kui aega oleks rohkem]-->
 
 ## Meeskond ja Tööjaotus
