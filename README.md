@@ -29,10 +29,8 @@
 │   └── progress.md
 ├── README.md
 ├── superset
-│   ├── exports
-│   ├── sql
-│   │   ├── flights_by_hour.sql
-│   │   └── flights_by_weekday.sql
+│   ├── dashboard_export_20260529T180446.zip
+│   └── dashboard_export_20260607T132733.zip
 ├── scripts
 │   ├── ingest.py
 │   ├── opensky_ingest.py
@@ -303,7 +301,7 @@ docker compose exec dbt dbt docs generate
 1. Ava Superset: http://localhost:8088
 2. Impordi dashboard ZIP:
    - **Dashboards** (vasakult esimene menüüelement) -> otsi paremalt ülevalt impordiikooni (Bulk Select nupust vasakul) - Import Dashboards. Vajuta sellele. 
-   - Vali imporditav fail (eelistatult kõige viimase kuupäevaga .zip): `superset/exports/dashboard_export_*.zip` (nt `dashboard_export_20260607T132733.zip`)
+   - Vali imporditav fail (eelistatult kõige viimase kuupäevaga .zip): `superset/dashboard_export_*.zip` (nt `dashboard_export_20260607T132733.zip`)
    - Avanenud aken küsib ka PostgreSQL.yaml parooli. 
    Sisesta .env failist POSTGRES_PASSWORD.
 3. Ava dashboard nimega **Lennujaama tiimi dashboard**:
