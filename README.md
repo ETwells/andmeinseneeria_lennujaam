@@ -64,6 +64,7 @@ Põhiandmevoog tuleb OpenSky API-st (endpointid: `GET /flights/arrival` ja `GET 
 Staatilisest lennujaama nimetuste CSV-st võetakse lennujaama nimi ja kood ning linna nimi ja riik.
 
 
+
 ## Arhitektuur
 
 ![Dataflow architecture and tooling](/images/Lennujaam_ver3.jpg)
@@ -260,14 +261,19 @@ Ja lisada järgnevad graafikud:
 ```bash
 0 3 * * * /opt/homebrew/bin/docker exec lennujaam-ingest python opensky_ingest.py >> $HOME/logs/lennujaam/ingest.log 2>&1
 ```
-* andmete transformatsioon (dbt)
-```bash
-30 3 * * * /opt/homebrew/bin/docker exec lennujaam-dbt dbt build >> $HOME/logs/lennujaam/dbt.log 2>&1
-```
+Põhiandmete voog laetakse staging kihti, kus nendega teostatakse transformatsioonid. 
+
 * Lisaandmete voog (OurAirports CSV) Kord kuus   
 ```bash
 0 2 1 * * /opt/homebrew/bin/docker exec lennujaam-ingest python ingest.py >> $HOME/logs/lennujaam/seed.log 2>&1
 ```
+Lisaandmete voo ülesanne on laadida antud andmed otse dbt seed kausta.
+
+* andmete transformatsioon (dbt)
+```bash
+30 3 * * * /opt/homebrew/bin/docker exec lennujaam-dbt dbt build >> $HOME/logs/lennujaam/dbt.log 2>&1
+```
+
 
 
 
